@@ -16,10 +16,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin
 
 # Get Mattermost
-RUN mkdir -p /mattermost/data \
-    && if [ "$edition" = "team" ] ; then curl https://releases.mattermost.com/$MM_VERSION/mattermost-team-$MM_VERSION-linux-amd64.tar.gz | tar -xvz ; \
-      else curl https://releases.mattermost.com/$MM_VERSION/mattermost-$MM_VERSION-linux-amd64.tar.gz | tar -xvz ; fi \
-    && cp /mattermost/config/config.json /config.json.save \
+RUN mkdir -p /mattermost/data
+ADD mattermost-seamless-linux-amd64.tar.gz /
+RUN cp /mattermost/config/config.json /config.json.save \
     && rm -rf /mattermost/config/config.json
 
 # Configure entrypoint and command
