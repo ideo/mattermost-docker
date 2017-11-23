@@ -23,12 +23,12 @@ The following instructions deploy Mattermost in a production configuration using
 
 If you want to install Enterprise Edition, you can skip this section.
 
-To install the team edition, comment out the two following lines in docker-compose.yaml file:
+To install the team edition, comment out the two following lines in `docker-compose.yaml` file:
 ```yaml
 args:
   - edition=team
 ```
-The `app` Dockerfile will read the `edition` build argument to install Team (`edition = 'team'`) or Entreprise (`edition != team`) edition.
+The `app` Dockerfile will read the `edition` build argument to install Team (`edition = 'team'`) or Enterprise (`edition != team`) edition.
 
 ### Database container
 This repository offer a Docker image for the Mattermost database. It is a customized PostgreSQL image that you should configure with following environment variables :
@@ -55,26 +55,26 @@ docker exec mattermost-db su - postgres sh -c "/usr/bin/envdir /etc/wal-e.d/env 
 Those tasks can be executed through a cron job or systemd timer.
 
 ### Application container
-Application container run the Mattermost application. You should configure it with following environment variables :
+Application container run the Mattermost application. You should configure it with following environment variables:
 * `MM_USERNAME`: database username
 * `MM_PASSWORD`: database password
 * `MM_DBNAME`: database name
 
-If your database use some custom host and port, it is also possible to configure them :
+If your database use some custom host and port, it is also possible to configure them:
 * `DB_HOST`: database host address
 * `DB_PORT_NUMBER`: database port
 
-If you use a Mattermost configuration file on a different location than the default one (`/mattermost/config/config.json`) :
+If you use a Mattermost configuration file on a different location than the default one (`/mattermost/config/config.json`):
 * `MM_CONFIG`: configuration file location inside the container.
 
-If you choose to use MySQL instead of PostgreSQL, you should set a different datasource and SQL driver :
+If you choose to use MySQL instead of PostgreSQL, you should set a different datasource and SQL driver:
 * `DB_PORT_NUMBER` : `3306`
 * `MM_SQLSETTINGS_DRIVERNAME` : `mysql`
 * `MM_SQLSETTINGS_DATASOURCE` : `MM_USERNAME:MM_PASSWORD@tcp(DB_HOST:DB_PORT_NUMBER)/MM_DBNAME?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s"`
 Don't forget to replace all entries (beginning by `MM_` and `DB_`) in `MM_SQLSETTINGS_DATASOURCE` with the real variables values.
 
 ### Web server container
-This image is optional, you should **not** use it when you have your own reverse-proxy. It is a simple front Web server for the Mattermost app container. If you use the provided `docker-compose.yml` file, you don't have to configure anything. But if your application container is reachable on custom host and/or port (eg. if you use a container provider), you should add those two environment variables :
+This image is optional, you should **not** use it when you have your own reverse-proxy. It is a simple front Web server for the Mattermost app container. If you use the provided `docker-compose.yml` file, you don't have to configure anything. But if your application container is reachable on custom host and/or port (eg. if you use a container provider), you should add those two environment variables:
 * `APP_HOST`: application host address
 * `APP_PORT_NUMBER`: application HTTP port
 
@@ -137,7 +137,7 @@ docker-compose build app
 docker-compose run app -upgrade_db_30
 docker-compose up -d
 ```
-See the [offical Upgrade Guide](http://docs.mattermost.com/administration/upgrade.html) for more details.
+See the [offical Upgrade Guide](https://docs.mattermost.com/administration/upgrade.html) for more details.
 
 ## Installation using Docker Swarm Mode
 
