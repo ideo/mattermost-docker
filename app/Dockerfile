@@ -29,6 +29,7 @@ CMD ["platform"]
 
 # Expose port 80 of the container
 EXPOSE 80
+EXPOSE 443
 
 # Use a volume for the data directory
 VOLUME /mattermost/data
